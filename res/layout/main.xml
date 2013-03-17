@@ -1,0 +1,55 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="15dp" >
+
+    <Button
+        android:id="@+id/apply_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:enabled="false"
+        android:minHeight="44dp"
+        android:minWidth="80dp"
+        android:text="@string/apply_now"
+        android:textAppearance="?android:attr/textAppearanceButton" />
+    
+    <Switch
+        android:id="@+id/switch_boot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical|start|right"
+        android:minHeight="48dp"
+        android:text="@string/boot_settings"
+        android:textAppearance="?android:attr/textAppearanceButton" />
+
+    <TextView
+        android:id="@+id/textVoltages"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/apply_button"
+        android:minHeight="32dp"
+        android:paddingTop="10dp"
+        android:text="@string/voltages"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#a0a0a0"
+        android:textStyle="bold" />
+
+    <View
+        android:id="@+id/line"
+    	android:layout_width="fill_parent"
+    	android:layout_height="2dp"
+    	android:background="#444444"
+    	android:layout_below="@id/textVoltages" />
+    
+    <ExpandableListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/line" />
+
+    
+</RelativeLayout>

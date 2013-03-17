@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+	<string name="app_name">IONIX Voltage Settings</string>
+	<string name="apply_now">Apply now</string>
+	<string name="boot_settings">Apply at boot</string>
+	<string name="voltages">VOLTAGE SETTINGS</string>
+</resources>
