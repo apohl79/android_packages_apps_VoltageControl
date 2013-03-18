@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+	<string name="app_name">IONIX Spannungseinstellungen</string>
+	<string name="apply_now">Anwenden</string>
+	<string name="boot_settings">Beim Booten setzen</string>
+	<string name="voltages">SPANNUNGSEINSTELLUNGEN</string>
+	<string name="restore">Wiederherstellen</string>
+</resources>
