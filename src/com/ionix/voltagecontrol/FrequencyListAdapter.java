@@ -65,6 +65,7 @@ public class FrequencyListAdapter extends BaseExpandableListAdapter {
 				progressText.setText(Integer.toString(progress * 25 + MIN_MV) + " mV");
 				mFqList.get(groupPosition).setMv(progress * 25 + MIN_MV);
 				voltageControl.activateApplyButton();
+				voltageControl.updateUvStringSettings();
 			}
 
 			@Override
