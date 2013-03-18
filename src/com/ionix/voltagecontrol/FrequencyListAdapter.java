@@ -58,14 +58,12 @@ public class FrequencyListAdapter extends BaseExpandableListAdapter {
 		seekBar.setMax((MAX_MV - MIN_MV) / 25);
 		seekBar.setProgress((mFqList.get(groupPosition).getMv() - MIN_MV) / 25);
 		seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress,
 					boolean fromUser) {
 				progressText.setText(Integer.toString(progress * 25 + MIN_MV) + " mV");
 				mFqList.get(groupPosition).setMv(progress * 25 + MIN_MV);
 				voltageControl.activateApplyButton();
-				voltageControl.updateUvStringSettings();
 			}
 
 			@Override

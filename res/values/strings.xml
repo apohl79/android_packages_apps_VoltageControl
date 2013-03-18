@@ -4,4 +4,5 @@
 	<string name="apply_now">Apply now</string>
 	<string name="boot_settings">Apply at boot</string>
 	<string name="voltages">VOLTAGE SETTINGS</string>
+	<string name="restore">Restore</string>
 </resources>
