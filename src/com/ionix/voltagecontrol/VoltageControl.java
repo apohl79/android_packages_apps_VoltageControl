@@ -21,17 +21,15 @@ import android.widget.Switch;
 public class VoltageControl extends ExpandableListActivity {
 	public static final String UV_TAB_FILE = "/sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table";
 
-	private ExpandableListAdapter frequencyAdapter;
-	String max_freq;
-	protected int max_freq_id;
-	private ArrayList<ProcessorFrequency> mFqList = new ArrayList<ProcessorFrequency>();
+	private ExpandableListAdapter m_frequencyAdapter;
+	private ArrayList<ProcessorFrequency> m_freqList = new ArrayList<ProcessorFrequency>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		frequencyAdapter = new FrequencyListAdapter(this,
+		m_frequencyAdapter = new FrequencyListAdapter(this,
 				this.getApplicationContext());
 
 		// Apply uv changes
@@ -96,20 +94,32 @@ public class VoltageControl extends ExpandableListActivity {
 		final Handler uIRefreshHandler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
-				((FrequencyListAdapter) frequencyAdapter)
-						.setFrequencies(mFqList);
-				setListAdapter(frequencyAdapter);
+				((FrequencyListAdapter) m_frequencyAdapter)
+						.setFrequencies(m_freqList);
+				setListAdapter(m_frequencyAdapter);
 			}
 		};
 
 		new Thread(new Runnable() {
 			public void run() {
 				String uvFreqValues = Utils.fileRead(UV_TAB_FILE);
-				String[] uv_table = uvFreqValues.split(" ");
-				for (int i = 0; i < uv_table.length; i += 2) {
-					Integer freq = Integer.parseInt(uv_table[i]);
-					Integer mv = Integer.parseInt(uv_table[i + 1]);
-					mFqList.add(new ProcessorFrequency(freq, mv));
+				String[] uvTable = uvFreqValues.split(" ");
+				// get min/max voltage values
+				if (uvTable[0].startsWith("min:")
+						&& uvTable[1].startsWith("max:")) {
+					((FrequencyListAdapter) m_frequencyAdapter).setMinMv(Integer
+							.parseInt(uvTable[0].substring(4)));
+					((FrequencyListAdapter) m_frequencyAdapter).setMaxMv(Integer
+							.parseInt(uvTable[1].substring(4)));
+				} else {
+					Log.e("ionix_vctrl", "Error parsing " + UV_TAB_FILE
+							+ ": min/max values expected in first line");
+					return;
+				}
+				for (int i = 2; i < uvTable.length; i += 2) {
+					Integer freq = Integer.parseInt(uvTable[i]);
+					Integer mv = Integer.parseInt(uvTable[i + 1]);
+					m_freqList.add(new ProcessorFrequency(freq, mv));
 				}
 				SharedPreferences prefs = getSharedPreferences("ionix_vctrl",
 						Context.MODE_PRIVATE);
@@ -129,17 +139,17 @@ public class VoltageControl extends ExpandableListActivity {
 
 	public String getUvString() {
 		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < mFqList.size(); i++) {
-			sb.append(mFqList.get(i).getMv() + " ");
+		for (int i = 0; i < m_freqList.size(); i++) {
+			sb.append(m_freqList.get(i).getMv() + " ");
 		}
 		return sb.toString();
 	}
 
 	public void setUvString(String uvValues) {
 		String[] uvArray = uvValues.split(" ");
-		if (mFqList.size() <= uvArray.length) {
-			for (int i = 0; i < mFqList.size(); i++) {
-				mFqList.get(i).setMv(Integer.parseInt(uvArray[i]));
+		if (m_freqList.size() <= uvArray.length) {
+			for (int i = 0; i < m_freqList.size(); i++) {
+				m_freqList.get(i).setMv(Integer.parseInt(uvArray[i]));
 			}
 		}
 	}
