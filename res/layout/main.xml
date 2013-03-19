@@ -7,8 +7,8 @@
         android:id="@+id/apply_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@id/textVoltages"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:enabled="false"
         android:minHeight="44dp"
         android:minWidth="80dp"
@@ -19,22 +19,30 @@
         android:id="@+id/restore_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_above="@id/textVoltages"
         android:layout_toRightOf="@id/apply_button"
         android:enabled="false"
         android:minHeight="44dp"
         android:minWidth="80dp"
         android:text="@string/restore"
         android:textAppearance="?android:attr/textAppearanceButton" />
+
+    <TextView
+        android:id="@+id/textBootSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:paddingTop="0dp"
+        android:text="@string/boot_settings"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
     
     <Switch
         android:id="@+id/switch_boot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_below="@id/textBootSwitch"
         android:gravity="center_vertical|start|right"
-        android:minHeight="48dp"
-        android:text="@string/boot_settings"
         android:textAppearance="?android:attr/textAppearanceButton" />
 
     <TextView
@@ -42,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/apply_button"
+        android:layout_below="@+id/switch_boot"
         android:minHeight="32dp"
         android:paddingTop="10dp"
         android:text="@string/voltages"
