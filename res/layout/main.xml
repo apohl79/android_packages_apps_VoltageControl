@@ -3,6 +3,19 @@
     android:layout_height="fill_parent"
     android:padding="15dp" >
 
+    <TextView
+        android:id="@+id/textVoltages"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/switch_boot"
+        android:minHeight="32dp"
+        android:paddingTop="10dp"
+        android:text="@string/voltages"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#a0a0a0"
+        android:textStyle="bold" />
+    
     <Button
         android:id="@+id/apply_button"
         android:layout_width="wrap_content"
@@ -44,19 +57,6 @@
         android:layout_below="@id/textBootSwitch"
         android:gravity="center_vertical|start|right"
         android:textAppearance="?android:attr/textAppearanceButton" />
-
-    <TextView
-        android:id="@+id/textVoltages"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/switch_boot"
-        android:minHeight="32dp"
-        android:paddingTop="10dp"
-        android:text="@string/voltages"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#a0a0a0"
-        android:textStyle="bold" />
 
     <View
         android:id="@+id/line"
