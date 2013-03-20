@@ -17,22 +17,11 @@ public class FrequencyListAdapter extends BaseExpandableListAdapter {
 	private Context m_ctx;
 	private ArrayList<ProcessorFrequency> m_freqList = new ArrayList<ProcessorFrequency>();
 	
-	private int m_minMv = 600;
-	private int m_maxMv = 1550;
-
 	public FrequencyListAdapter(VoltageControl voltageControl, Context context) {
 		this.m_vctrl = voltageControl;
 		this.m_ctx = context;
 	}
 	
-	public void setMinMv(int minMv) {
-		m_minMv = minMv;
-	}
-
-	public void setMaxMv(int maxMv) {
-		m_maxMv = maxMv;
-	}
-
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
 		return m_freqList.get(groupPosition).getMv();
@@ -61,14 +50,14 @@ public class FrequencyListAdapter extends BaseExpandableListAdapter {
 				.findViewById(R.id.freq_voltageTxt);
 		progressText.setText(Integer.toString(m_freqList.get(groupPosition)
 				.getMv()) + " mV");
-		seekBar.setMax((m_maxMv - m_minMv) / 25);
-		seekBar.setProgress((m_freqList.get(groupPosition).getMv() - m_minMv) / 25);
+		seekBar.setMax((VoltageControl.MAX_MV - VoltageControl.MIN_MV) / 25);
+		seekBar.setProgress((m_freqList.get(groupPosition).getMv() - VoltageControl.MIN_MV) / 25);
 		seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress,
 					boolean fromUser) {
-				progressText.setText(Integer.toString(progress * 25 + m_minMv) + " mV");
-				m_freqList.get(groupPosition).setMv(progress * 25 + m_minMv);
+				progressText.setText(Integer.toString(progress * 25 + VoltageControl.MIN_MV) + " mV");
+				m_freqList.get(groupPosition).setMv(progress * 25 + VoltageControl.MIN_MV);
 				m_vctrl.activateApplyButton();
 			}
 

@@ -24,6 +24,9 @@ public class VoltageControl extends ExpandableListActivity {
 	private ExpandableListAdapter m_frequencyAdapter;
 	private ArrayList<ProcessorFrequency> m_freqList = new ArrayList<ProcessorFrequency>();
 
+	public static int MIN_MV = 0;
+	public static int MAX_MV = 0;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -70,6 +73,22 @@ public class VoltageControl extends ExpandableListActivity {
 					}
 				});
 
+		((Button) findViewById(R.id.plus_button))
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						addMvAll(25);
+					}
+				});
+
+		((Button) findViewById(R.id.minus_button))
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						addMvAll(-25);
+					}
+				});
+
 		// Apply on boot switch
 		SharedPreferences prefs = getSharedPreferences("ionix_vctrl",
 				Context.MODE_PRIVATE);
@@ -107,10 +126,8 @@ public class VoltageControl extends ExpandableListActivity {
 				// get min/max voltage values
 				if (uvTable[0].startsWith("min:")
 						&& uvTable[1].startsWith("max:")) {
-					((FrequencyListAdapter) m_frequencyAdapter).setMinMv(Integer
-							.parseInt(uvTable[0].substring(4)));
-					((FrequencyListAdapter) m_frequencyAdapter).setMaxMv(Integer
-							.parseInt(uvTable[1].substring(4)));
+					MIN_MV = Integer.parseInt(uvTable[0].substring(4));
+					MAX_MV = Integer.parseInt(uvTable[1].substring(4));
 				} else {
 					Log.e("ionix_vctrl", "Error parsing " + UV_TAB_FILE
 							+ ": min/max values expected in first line");
@@ -143,6 +160,19 @@ public class VoltageControl extends ExpandableListActivity {
 			sb.append(m_freqList.get(i).getMv() + " ");
 		}
 		return sb.toString();
+	}
+
+	public void addMvAll(int mv) {
+		boolean updated = false;
+		for (int i = 0; i < m_freqList.size(); i++) {
+			updated |= m_freqList.get(i).addMv(mv);
+		}
+		if (updated) {
+			// update the list view
+			getExpandableListView().invalidateViews();
+			// activate the apply button
+			((Button) findViewById(R.id.apply_button)).setEnabled(true);
+		}
 	}
 
 	public void setUvString(String uvValues) {
