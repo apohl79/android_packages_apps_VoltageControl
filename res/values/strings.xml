@@ -2,7 +2,9 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 	<string name="app_name">IONIX Voltage Settings</string>
 	<string name="apply_now">Apply now</string>
-	<string name="boot_settings">Apply at boot</string>
+	<string name="boot_settings">Set on boot</string>
 	<string name="voltages">VOLTAGE SETTINGS</string>
 	<string name="restore">Restore</string>
+	<string name="plus">+25 mV</string>
+	<string name="minus">-25 mV</string>
 </resources>
